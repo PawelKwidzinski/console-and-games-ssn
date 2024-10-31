@@ -1,0 +1,30 @@
+services:
+  postgres:
+    container_name: postgres-sql-cgr
+    image: postgres:17.0
+    environment:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+      PGDATA: /var/lib/postgresql/data
+      POSTGRES_DB: console_games_rental
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - spring-cgr
+    restart: unless-stopped
+  mail-dev:
+    container_name: mail-dev-cgr
+    image: maildev/maildev
+    ports:
+      - "1080:1080"
+      - "1025:1025"
+
+networks:
+  spring-cgr:
+    driver: bridge
+
+volumes:
+  postgres:
+    driver: local
