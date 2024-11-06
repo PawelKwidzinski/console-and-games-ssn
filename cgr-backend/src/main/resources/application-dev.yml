@@ -32,7 +32,8 @@ spring:
 application:
   security:
     jwt:
-      secret-key: kgPGQjqyWsTiUwbav5hNrQ1XqfBj3D1w
+      # generate from https://jwtsecret.com/generate
+      secret-key: ${JWT_SECRET_KEY}
       expiration: 8640000
   mailing:
     frontend:
