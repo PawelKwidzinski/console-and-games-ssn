@@ -28,3 +28,16 @@ spring:
         connectiontimeout: 5000
         timeout: 3000
         writetimeout: 5000
+
+application:
+  security:
+    jwt:
+      # generate from https://jwtsecret.com/generate
+      secret-key: ${JWT_SECRET_KEY}
+      expiration: 8640000
+  mailing:
+    frontend:
+      activation-url: http://localhost:4200/activate
+
+server:
+  port: 8088
