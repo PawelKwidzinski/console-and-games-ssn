@@ -10,7 +10,7 @@ import pl.kwidz.cgr.role.Role;
 import pl.kwidz.cgr.role.RoleRepository;
 
 @SpringBootApplication
-@EnableJpaAuditing
+@EnableJpaAuditing(auditorAwareRef = "auditorAware")
 @EnableAsync
 public class ConsoleGamesRentalApiApplication {
 
