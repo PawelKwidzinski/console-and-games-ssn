@@ -8,6 +8,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import pl.kwidz.cgr.game.Game;
+import pl.kwidz.cgr.history.GameTransactionHistory;
 import pl.kwidz.cgr.role.Role;
 
 import java.security.Principal;
@@ -42,6 +44,12 @@ public class User implements UserDetails, Principal {
 
     @ManyToMany(fetch = EAGER)
     private List<Role> roles;
+
+    @OneToMany(mappedBy = "owner")
+    private List<Game> games;
+
+    @OneToMany(mappedBy = "user")
+    private List<GameTransactionHistory> histories;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
