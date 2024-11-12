@@ -1,5 +1,6 @@
 package pl.kwidz.cgr.game;
 
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import pl.kwidz.cgr.common.PageResponse;
 
 @RestController
@@ -94,5 +97,21 @@ public class GameController {
                                                       Authentication connectedUser) {
         return ResponseEntity.ok(gameService.approveReturnBorrowedGame(gameId, connectedUser));
     }
+
+    @PostMapping(value = "/cover/{game-id}", consumes = "multipart/form-data")
+    public ResponseEntity<?> uploadGameCoverPicture(@PathVariable("game-id") Integer gameId,
+                                                    @Parameter()
+                                                    @RequestPart("file") MultipartFile file,
+                                                    Authentication connectedUser) {
+        gameService.uploadBookCoverPicture(file, connectedUser, gameId);
+        return ResponseEntity.accepted().build();
+    }
+
+
+
+
+
+
+
 
 }

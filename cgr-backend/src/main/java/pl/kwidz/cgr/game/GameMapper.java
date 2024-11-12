@@ -1,6 +1,7 @@
 package pl.kwidz.cgr.game;
 
 import org.springframework.stereotype.Service;
+import pl.kwidz.cgr.file.FileUtils;
 import pl.kwidz.cgr.history.GameTransactionHistory;
 
 @Service
@@ -33,8 +34,7 @@ public class GameMapper {
                 .shareable(game.isShareable())
                 .archived(game.isArchived())
                 .owner(game.getOwner().fullName())
-                // todo implement this later
-                //.cover()
+                .cover(FileUtils.readFileFromLocation(game.getGameCover()))
                 .build();
     }
 

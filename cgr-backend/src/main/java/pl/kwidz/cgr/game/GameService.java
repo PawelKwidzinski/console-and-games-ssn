@@ -8,9 +8,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.multipart.MultipartFile;
 import pl.kwidz.cgr.common.PageResponse;
 import pl.kwidz.cgr.exception.OperationNotPermittedException;
+import pl.kwidz.cgr.file.FileStorageService;
 import pl.kwidz.cgr.history.GameTransactionHistory;
 import pl.kwidz.cgr.history.GameTransactionHistoryRepository;
 import pl.kwidz.cgr.user.User;
@@ -27,6 +28,7 @@ public class GameService {
     private final GameRepository gameRepository;
     private final GameMapper gameMapper;
     private final GameTransactionHistoryRepository transactionHistoryRepository;
+    private final FileStorageService fileStorageService;
 
     public Integer save(GameRequest gameRequest, Authentication connectedUser) {
         User user = (User) connectedUser.getPrincipal();
@@ -180,4 +182,14 @@ public class GameService {
 
         return transactionHistoryRepository.save(gameTransactionHistory).getId();
     }
+
+    public void uploadBookCoverPicture(MultipartFile file, Authentication connectedUser, Integer gameId) {
+        Game game = gameRepository.findById(gameId)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("No game found with the ID: %d", gameId)));
+        User user = (User) connectedUser.getPrincipal();
+        var gameCover = fileStorageService.saveFile(file, user.getId());
+        game.setGameCover(gameCover);
+        gameRepository.save(game);
+    }
+
 }
