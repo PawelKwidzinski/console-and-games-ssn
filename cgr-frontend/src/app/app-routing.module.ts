@@ -15,6 +15,11 @@ const routes: Routes = [{
   {
     path: 'activate-account',
     component: ActivateAccountComponent
+  },
+  {
+    path:'games',
+    loadChildren: () => import('./modules/game/game.module')
+      .then(m => m.GameModule)
   }
 
 ];
