@@ -6,6 +6,7 @@ import { MainComponent } from './pages/main/main.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { GameListComponent } from './pages/game-list/game-list.component';
 import { GameCardComponent } from './components/game-card/game-card.component';
+import { RatingComponent } from './components/rating/rating.component';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { GameCardComponent } from './components/game-card/game-card.component';
     MainComponent,
     MenuComponent,
     GameListComponent,
-    GameCardComponent
+    GameCardComponent,
+    RatingComponent
   ],
   imports: [
     CommonModule,
