@@ -9,7 +9,7 @@ import {PageResponseGameResponse} from '../../../../services/models/page-respons
   styleUrl: './game-list.component.scss'
 })
 export class GameListComponent implements OnInit {
-  gameResponse: PageResponseGameResponse ={}
+  gameResponse: PageResponseGameResponse = {};
   page = 0;
   size = 5;
 
