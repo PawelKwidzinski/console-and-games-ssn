@@ -1,10 +1,20 @@
-<h3>Games list</h3>
-<div *ngIf="message" class="alert" [class.alert-danger]="level === 'error'" [class.alert-success]="level === 'success'">
-{{ message }}
-</div>
+<h3>My Games list</h3>
 <hr>
+<div class="d-flex justify-content-end mb-3">
+  <a routerLink="/games/manage" class="btn btn-outline-primary">
+    <i class="fas fa-plus"></i>&nbsp;New Game
+  </a>
+</div>
 <div class="d-flex justify-content-start gap-2 flex-wrap">
-  <app-game-card *ngFor="let game of gameResponse.content" [game]="game" (borrow)="borrowGame($event)"></app-game-card>
+  <app-game-card
+    *ngFor="let game of gameResponse.content"
+    [game]="game"
+    [manage]="true"
+    (archive)="archiveGame($event)"
+    (share)="shareGame($event)"
+    (edit)="editGame($event)"
+  >
+  </app-game-card>
 </div>
 
 <div class="d-flex justify-content-center mt-3">
