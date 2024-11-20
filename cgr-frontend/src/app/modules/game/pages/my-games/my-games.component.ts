@@ -74,7 +74,7 @@ export class MyGamesComponent implements OnInit {
 
   }
 
-  editGame(gamet: GameResponse) {
-
+  editGame(game: GameResponse) {
+    this.router.navigate(['games', 'manage', game.id]);
   }
 }

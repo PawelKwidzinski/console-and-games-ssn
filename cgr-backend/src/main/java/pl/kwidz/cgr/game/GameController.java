@@ -31,7 +31,7 @@ public class GameController {
         return ResponseEntity.ok(gameService.save(gameRequest, connectedUser));
     }
 
-    @GetMapping("{game-id}")
+    @GetMapping("/{game-id}")
     public ResponseEntity<GameResponse> findGameById(@PathVariable("game-id") Integer gameId) {
         return ResponseEntity.ok(gameService.findById(gameId));
     }
