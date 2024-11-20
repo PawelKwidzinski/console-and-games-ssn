@@ -1,21 +1,20 @@
 import {Component, OnInit} from '@angular/core';
+import {PageResponseGameResponse} from '../../../../services/models/page-response-game-response';
 import {GameService} from '../../../../services/services/game.service';
 import {Router} from '@angular/router';
-import {PageResponseGameResponse} from '../../../../services/models/page-response-game-response';
 import {GameResponse} from '../../../../services/models/game-response';
 
 @Component({
-  selector: 'app-game-list',
-  templateUrl: './game-list.component.html',
-  styleUrl: './game-list.component.scss'
+  selector: 'app-my-games',
+  templateUrl: './my-games.component.html',
+  styleUrl: './my-games.component.scss'
 })
-export class GameListComponent implements OnInit {
+export class MyGamesComponent implements OnInit {
   gameResponse: PageResponseGameResponse = {};
   page = 0;
   size = 5;
   pages: any = [];
-  message = '';
-  level = 'success';
+
 
   constructor(private gameService: GameService, private router: Router) {
   }
@@ -25,10 +24,10 @@ export class GameListComponent implements OnInit {
   }
 
   private findAllGames() {
-    this.gameService.findAllGames({
-        page: this.page,
-        size: this.size
-      }).subscribe({
+    this.gameService.findAllGamesByOwner({
+      page: this.page,
+      size: this.size
+    }).subscribe({
       next: (games) => {
         this.gameResponse = games;
         this.pages = Array(this.gameResponse.totalPages)
@@ -67,20 +66,15 @@ export class GameListComponent implements OnInit {
     return this.page === this.gameResponse.totalPages as number - 1;
   }
 
-  borrowGame(game: GameResponse) {
-    this.gameService.borrowGame({
-        'game-id': game.id as number
-      }).subscribe({
-      next: () => {
-        this.level = 'success';
-        this.message = 'Game successfully added to your list!';
-      },
-      error: (err) => {
-        console.log(err);
-        this.level = 'error';
-        this.message = err.error.error;
-      }
-    })
+  archiveGame(game: GameResponse) {
+
   }
 
+  shareGame(game: GameResponse) {
+
+  }
+
+  editGame(game: GameResponse) {
+    this.router.navigate(['games', 'manage', game.id]);
+  }
 }

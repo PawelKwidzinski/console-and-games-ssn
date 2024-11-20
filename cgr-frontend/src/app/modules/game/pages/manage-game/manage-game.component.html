@@ -1,0 +1,71 @@
+<div class="p-2">
+  <h2>Manage my game</h2>
+  <hr>
+  <div class="alert alert-danger mt-2" role="alert" *ngIf="errorMsg.length">
+    <p class="p-0 m-0" *ngFor="let msg of errorMsg">{{ msg }}</p>
+  </div>
+  <div class="d-flex gap-2">
+    <div class="col-3">
+      <img class="rounded-1" width="75%" height="75%"
+           [src]="selectedPicture || 'https://imgs.search.brave.com/5T0YhrQyy2-DYWBl5aq_9ic3XklE-ucMB_kkMPGcqr0/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9wcmV2/aWV3LnJlZGQuaXQv/d2hhdHMteW91ci1m/YXZvcml0ZS1sb3Jk/LW9mLXRoZS1yaW5n/cy1nYW1lLWJlc2lk/ZXMtc2hhZG93LXYw/LTJrYjI0cnZ3enZw/YTEuanBnP3dpZHRo/PTY0MCZjcm9wPXNt/YXJ0JmF1dG89d2Vi/cCZzPTkxMTk2NWM2/YWMwZDAzM2RmMTM3/NmVmNWM3ODc2NWMz/MWQ1YWY3OGY'"
+           alt="..">
+      <div class="mt-2 w-75">
+        <input
+          (change)="onFileSelected($event)"
+          class="form-control"
+          type="file"
+          id="formFile"
+          accept="image/*"
+        >
+      </div>
+    </div>
+    <div class="col-9">
+      <form class="row g-3">
+        <div class="col-12">
+          <label for="title" class="form-label">Title</label>
+          <input [(ngModel)]="gameRequest.title" [ngModelOptions]="{standalone: true}" name="title" type="text"
+                 class="form-control" id="title" placeholder="Game Title">
+        </div>
+        <div class="col-12">
+          <label for="description" class="form-label">Description</label>
+          <textarea [(ngModel)]="gameRequest.description" [ngModelOptions]="{standalone: true}" name="description" type="text"
+                    rows="2" class="form-control" id="description" placeholder="Some description about game"></textarea>
+        </div>
+        <div class="col-3">
+          <label for="platform" class="form-label">Platform</label>
+          <input [(ngModel)]="gameRequest.platform" [ngModelOptions]="{standalone: true}" name="platform" type="text"
+                 class="form-control" id="platform" placeholder="Platform to run game">
+        </div>
+        <div class="col-3">
+          <label for="genre" class="form-label">Genre</label>
+          <input [(ngModel)]="gameRequest.genre" [ngModelOptions]="{standalone: true}" name="genre" type="text"
+                 class="form-control" id="genre" placeholder="Type of game">
+        </div>
+        <div class="col-3">
+          <label for="studio" class="form-label">Studio</label>
+          <input [(ngModel)]="gameRequest.studio" [ngModelOptions]="{standalone: true}" name="studio" type="text"
+                 class="form-control" id="studio" placeholder="Studio developed game">
+        </div>
+        <div class="col-3">
+          <label for="language" class="form-label">Language</label>
+          <input [(ngModel)]="gameRequest.language" [ngModelOptions]="{standalone: true}" name="language" type="text"
+                 class="form-control" id="language" placeholder="Supported by the game">
+        </div>
+        <div class="col-12">
+          <input [(ngModel)]="gameRequest.shareable" [ngModelOptions]="{standalone: true}" name="shareable"
+                 class="form-check-input" type="checkbox" id="shareable">
+          <label for="shareable" class="form-check-label">&nbsp; Share me</label>
+        </div>
+        <div class="d-flex justify-content-end gap-2 col-12">
+          <button (click)="saveMyGame()" type="submit" class="btn btn-outline-primary">
+            <i class="fas fa-save"></i>&nbsp; Save
+          </button>
+          <button routerLink="/games/my-games" class="btn btn-outline-danger">
+          Cancel
+          </button>
+
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
