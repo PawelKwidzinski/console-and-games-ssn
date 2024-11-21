@@ -4,6 +4,7 @@ import {MainComponent} from './pages/main/main.component';
 import {GameListComponent} from './pages/game-list/game-list.component';
 import {MyGamesComponent} from './pages/my-games/my-games.component';
 import {ManageGameComponent} from './pages/manage-game/manage-game.component';
+import {BorrowedGameListComponent} from './pages/borrowed-game-list/borrowed-game-list.component';
 
 const routes: Routes = [
   {
@@ -19,13 +20,17 @@ const routes: Routes = [
         component: MyGamesComponent
       },
       {
+        path: 'my-borrowed-games',
+        component: BorrowedGameListComponent
+      },
+      {
         path: 'manage',
         component: ManageGameComponent
       },
       {
         path: 'manage/:gameId',
         component: ManageGameComponent
-      },
+      }
     ]
   },
 

@@ -10,6 +10,7 @@ import { RatingComponent } from './components/rating/rating.component';
 import { MyGamesComponent } from './pages/my-games/my-games.component';
 import { ManageGameComponent } from './pages/manage-game/manage-game.component';
 import {FormsModule} from '@angular/forms';
+import { BorrowedGameListComponent } from './pages/borrowed-game-list/borrowed-game-list.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import {FormsModule} from '@angular/forms';
     GameCardComponent,
     RatingComponent,
     MyGamesComponent,
-    ManageGameComponent
+    ManageGameComponent,
+    BorrowedGameListComponent
   ],
   imports: [
     CommonModule,
