@@ -1,0 +1,129 @@
+<h2>My Borrowed Games</h2>
+<hr>
+
+<div class="d-flex flex-column col-6" *ngIf="selectedGame">
+  <h3>Return and share feedback</h3>
+  <div class="d-flex flex-column col-12">
+    <div class="d-flex">
+      <div class="col-2">
+        <strong>Title</strong>
+      </div>
+      <div class="col-10">{{selectedGame.title}}</div>
+    </div>
+    <div class="d-flex">
+      <div class="col-2">
+        <strong >Platform</strong>
+      </div>
+      <div class="col-10">{{selectedGame.platform}}</div>
+    </div>
+    <div class="d-flex">
+      <div class="col-2">
+        <strong>Genre</strong>
+      </div>
+      <div class="col-10">{{selectedGame.genre}}</div>
+    </div>
+    <div class="d-flex">
+      <div class="col-2">
+        <strong>Rate</strong>
+      </div>
+      <div class="col-10">{{selectedGame.rate}}</div>
+    </div>
+  </div>
+  <hr>
+  <div class="col-12">
+    <form class="row g-3">
+      <div class="d-flex gap-3">
+        <input
+          class="form-range w-25" min="0" max="5" step="0.5"
+          [(ngModel)]="feedbackRequest.note" type="range" id="rate" name="rate"
+        >
+        <app-rating [rating]="feedbackRequest.note || 0"></app-rating>
+        {{ feedbackRequest.note }}
+      </div>
+      <div class="col-12">
+        <label for="feedback" class="form-label">Feedback</label>
+        <textarea [(ngModel)]="feedbackRequest.comment" rows="4" class="form-control" id="feedback" name="feedback"
+                  placeholder="Write your feedback about the game">
+        </textarea>
+      </div>
+      <div class="d-flex justify-content-end gap-2 col-12">
+        <button class="btn btn-outline-primary" (click)="returnGame(true)" type="submit">
+          <i class="fas fa-save"></i>&nbsp;Rate the Game & Return
+        </button>
+        <button class="btn btn-outline-success" (click)="returnGame(false)" type="submit">
+          <i class="fa-solid fa-paper-plane"></i>&nbsp;Just Return
+        </button>
+        <button (click)="selectedGame = undefined" class="btn btn-outline-danger">
+          <i class="fas fa-times"></i>&nbsp;Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+<div *ngIf="!selectedGame">
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+      <th scope="col">Platform</th>
+      <th scope="col">Genre</th>
+      <th scope="col">Rate</th>
+      <th scope="col"><i class="fas fa-cogs"></i></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let game of borrowedGamesResponse.content let index = index">
+      <th scope="row"> {{ index + 1 }}</th>
+      <td>{{ game.title }}</td>
+      <td>{{ game.platform }}</td>
+      <td>{{ game.genre }}</td>
+      <td> <i class="fas fa-star text-warning"></i>{{ game.rate }}</td>
+      <td>
+        <div class="d-flex gap-2">
+          <i *ngIf="game.returned" class="fa-regular fa-paper-plane text-primary"></i>
+          <i class="cursor-pointer fa-solid fa-paper-plane text-success" *ngIf="!game.returned"
+             (click)="returnBorrowedGame(game)"></i>
+          <i class="fa-solid fa-circle-check" [class.text-success]="game.returnApproved"></i>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="d-flex justify-content-center mt-3">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item">
+          <a (click)="goToFirstPage()" class="page-link" href="javascript:void(0)" aria-label="Previous"
+             [class.disabled]="page === 0">
+            <i class="fa-solid fa-angles-left"></i>
+          </a>
+        </li>
+        <li class="page-item">
+          <a (click)="goToPreviousPage()" class="page-link" href="javascript:void(0)" aria-label="Previous"
+             [class.disabled]="page === 0">
+            <i class="fa-solid fa-angle-left"></i>
+          </a>
+        </li>
+        <li class="page-item" *ngFor="let pageIndex of pages">
+          <a (click)="gotToPage(pageIndex)" class="page-link" [class.active]="page === pageIndex"
+             href="javascript:void(0)">
+            {{ pageIndex + 1 }}
+          </a>
+        </li>
+        <li class="page-item">
+          <a (click)="goToNextPage()" class="page-link" href="javascript:void(0)" aria-label="Next"
+             [class.disabled]="isLastPage">
+            <i class="fa-solid fa-chevron-right"></i>
+          </a>
+        </li>
+        <li class="page-item">
+          <a (click)="goToLastPage()" class="page-link" href="javascript:void(0)" aria-label="Next"
+             [class.disabled]="isLastPage">
+            <i class="fa-solid fa-angles-right"></i>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
