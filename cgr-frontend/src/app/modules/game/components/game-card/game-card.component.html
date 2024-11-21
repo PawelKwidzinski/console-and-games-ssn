@@ -1,4 +1,7 @@
-<div class="card" style="width: 20rem; max-height: 440px; min-height: 440px">
+<div class="card border-2" style="width: 20rem; max-height: 440px; min-height: 440px"
+     [class.border-primary]="game.shareable"
+     [class.border-danger]="game.archived"
+>
     <img height="200" [src]="gameCover" class="card-img-top" alt="...">
     <div class="card-body overflow-y-scroll overflow-x-hidden">
         <h5 class="card-title fs-6 text-nowrap fw-bold mb-1"><i class="fa-solid fa-gamepad">&nbsp;</i> {{ game.title }}

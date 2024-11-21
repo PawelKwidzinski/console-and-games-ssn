@@ -67,11 +67,23 @@ export class MyGamesComponent implements OnInit {
   }
 
   archiveGame(game: GameResponse) {
-
+    this.gameService.updateArchiveStatus({
+      'game-id': game.id as number
+    }).subscribe({
+      next: () => {
+        game.archived = !game.archived;
+      }
+    })
   }
 
   shareGame(game: GameResponse) {
-
+    this.gameService.updateSharableStatus({
+      'game-id': game.id as number
+    }).subscribe({
+      next: () => {
+        game.shareable = !game.shareable;
+      }
+    })
   }
 
   editGame(game: GameResponse) {
