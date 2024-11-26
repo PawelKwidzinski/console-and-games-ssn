@@ -11,6 +11,7 @@ import { MyGamesComponent } from './pages/my-games/my-games.component';
 import { ManageGameComponent } from './pages/manage-game/manage-game.component';
 import {FormsModule} from '@angular/forms';
 import { BorrowedGameListComponent } from './pages/borrowed-game-list/borrowed-game-list.component';
+import { ReturnGamesComponent } from './pages/return-games/return-games.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { BorrowedGameListComponent } from './pages/borrowed-game-list/borrowed-g
     RatingComponent,
     MyGamesComponent,
     ManageGameComponent,
-    BorrowedGameListComponent
+    BorrowedGameListComponent,
+    ReturnGamesComponent
   ],
   imports: [
     CommonModule,

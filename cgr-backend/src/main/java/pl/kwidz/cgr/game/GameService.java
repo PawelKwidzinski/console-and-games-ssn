@@ -172,8 +172,8 @@ public class GameService {
         }
 
         User user = (User) connectedUser.getPrincipal();
-        if (Objects.equals(game.getOwner().getId(), user.getId())) {
-            throw new OperationNotPermittedException("You cannot borrow or return your own game");
+        if (!Objects.equals(game.getOwner().getId(), user.getId())) {
+            throw new OperationNotPermittedException("You cannot return a game that you do not own");
         }
         GameTransactionHistory gameTransactionHistory = transactionHistoryRepository.findByGameIdAndOwnerId(gameId, user.getId())
                 .orElseThrow(() -> new OperationNotPermittedException(
