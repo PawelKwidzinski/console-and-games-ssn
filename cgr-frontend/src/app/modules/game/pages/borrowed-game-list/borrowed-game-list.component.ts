@@ -74,12 +74,12 @@ export class BorrowedGameListComponent implements OnInit {
     return this.page === this.borrowedGamesResponse.totalPages as number - 1;
   }
 
-  returnGame(withFeedack: boolean) {
+  returnGame(withFeedback: boolean) {
     this.gameService.returnBorrowedGame({
       'game-id': this.selectedGame?.id as number,
     }).subscribe({
       next: () => {
-        if (withFeedack) {
+        if (withFeedback) {
           this.giveFeedback();
         }
         this.selectedGame = undefined;

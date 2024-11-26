@@ -46,7 +46,7 @@ public class GameService {
     public PageResponse<GameResponse> findAllGames(int page, int size, Authentication connectedUser) {
         User user = (User) connectedUser.getPrincipal();
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
-        Page<Game> games = gameRepository.findAllDisplayableGames(pageable, user.getId());
+        Page<Game> games = gameRepository.findAllDisplayableGames(pageable, connectedUser.getName());
         List<GameResponse> gameResponses = games.stream()
                 .map(gameMapper::toBookResponse)
                 .toList();
@@ -172,8 +172,8 @@ public class GameService {
         }
 
         User user = (User) connectedUser.getPrincipal();
-        if (Objects.equals(game.getOwner().getId(), user.getId())) {
-            throw new OperationNotPermittedException("You cannot borrow or return your own game");
+        if (!Objects.equals(game.getOwner().getId(), user.getId())) {
+            throw new OperationNotPermittedException("You cannot return a game that you do not own");
         }
         GameTransactionHistory gameTransactionHistory = transactionHistoryRepository.findByGameIdAndOwnerId(gameId, user.getId())
                 .orElseThrow(() -> new OperationNotPermittedException(

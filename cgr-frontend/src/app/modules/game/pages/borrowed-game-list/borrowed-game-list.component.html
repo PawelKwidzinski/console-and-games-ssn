@@ -84,7 +84,7 @@
           <i *ngIf="game.returned" class="fa-regular fa-paper-plane text-primary"></i>
           <i class="cursor-pointer fa-solid fa-paper-plane text-success" *ngIf="!game.returned"
              (click)="returnBorrowedGame(game)"></i>
-          <i class="fa-solid fa-circle-check" [class.text-success]="game.returnApproved"></i>
+          <i class="fa-solid fa-circle-check" [class.text-success]="game.returnApproved" [class.text-primary]="!game.returnApproved"></i>
         </div>
       </td>
     </tr>

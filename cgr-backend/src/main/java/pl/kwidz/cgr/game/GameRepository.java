@@ -13,7 +13,7 @@ public interface GameRepository extends JpaRepository<Game, Integer>, JpaSpecifi
             SELECT game FROM Game game
             WHERE game.archived = false
             AND game.shareable = true
-            AND game.createdBy != :userId
+            AND game.createdBy != :username
             """)
-    Page<Game> findAllDisplayableGames(Pageable pageable, Integer userId);
+    Page<Game> findAllDisplayableGames(Pageable pageable, String username);
 }
