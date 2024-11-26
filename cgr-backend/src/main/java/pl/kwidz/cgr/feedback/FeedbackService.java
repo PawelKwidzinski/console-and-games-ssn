@@ -32,7 +32,7 @@ public class FeedbackService {
         }
         User user = (User) connectedUser.getPrincipal();
 
-        if (!Objects.equals(game.getOwner().getId(), user.getId())) {
+        if (Objects.equals(game.getOwner().getId(), user.getId())) {
             throw new OperationNotPermittedException("You cannot give a feedback to your own game");
         }
         Feedback feedback = feedbackMapper.toFeedback(request);

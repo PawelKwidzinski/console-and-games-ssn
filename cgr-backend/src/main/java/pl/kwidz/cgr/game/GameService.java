@@ -46,7 +46,7 @@ public class GameService {
     public PageResponse<GameResponse> findAllGames(int page, int size, Authentication connectedUser) {
         User user = (User) connectedUser.getPrincipal();
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
-        Page<Game> games = gameRepository.findAllDisplayableGames(pageable, user.getId());
+        Page<Game> games = gameRepository.findAllDisplayableGames(pageable, connectedUser.getName());
         List<GameResponse> gameResponses = games.stream()
                 .map(gameMapper::toBookResponse)
                 .toList();
