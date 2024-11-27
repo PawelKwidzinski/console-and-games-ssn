@@ -6,35 +6,43 @@ import {MyGamesComponent} from './pages/my-games/my-games.component';
 import {ManageGameComponent} from './pages/manage-game/manage-game.component';
 import {BorrowedGameListComponent} from './pages/borrowed-game-list/borrowed-game-list.component';
 import {ReturnGamesComponent} from './pages/return-games/return-games.component';
+import {authGuard} from '../../services/guard/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: MainComponent,
+    canActivate: [authGuard],
     children: [
       {
         path: '',
-        component: GameListComponent
+        component: GameListComponent,
+        canActivate: [authGuard],
       },
       {
         path: 'my-games',
-        component: MyGamesComponent
+        component: MyGamesComponent,
+        canActivate: [authGuard],
       },
       {
         path: 'my-borrowed-games',
-        component: BorrowedGameListComponent
+        component: BorrowedGameListComponent,
+        canActivate: [authGuard],
       },
       {
         path: 'my-returned-games',
-        component: ReturnGamesComponent
+        component: ReturnGamesComponent,
+        canActivate: [authGuard],
       },
       {
         path: 'manage',
-        component: ManageGameComponent
+        component: ManageGameComponent,
+        canActivate: [authGuard],
       },
       {
         path: 'manage/:gameId',
-        component: ManageGameComponent
+        component: ManageGameComponent,
+        canActivate: [authGuard],
       }
     ]
   },
