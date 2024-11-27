@@ -20,10 +20,11 @@ export class MenuComponent implements OnInit {
         link.classList.add('active');
       });
     });
-
   }
 
   logout() {
-
+    localStorage.removeItem('token');
+    window.location.reload();
   }
+
 }
