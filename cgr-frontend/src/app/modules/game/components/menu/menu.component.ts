@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {JwtHelperService} from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-menu',
@@ -7,10 +8,12 @@ import {Component, OnInit} from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
+  loggedUser = '';
+
   ngOnInit(): void {
     const linkColor = document.querySelectorAll('.nav-link')
     linkColor.forEach((link) => {
-      if (window.location.href.endsWith(link.getAttribute('href') || '' )) {
+      if (window.location.href.endsWith(link.getAttribute('href') || '')) {
         link.classList.add('active')
       }
       link.addEventListener('click', () => {
@@ -20,11 +23,25 @@ export class MenuComponent implements OnInit {
         link.classList.add('active');
       });
     });
+    this.getUsernameFromToken()
   }
 
   logout() {
     localStorage.removeItem('token');
     window.location.reload();
+  }
+
+  private getUsernameFromToken() {
+    const jwtHelper = new JwtHelperService();
+    const token = localStorage.getItem('token') as string;
+
+    if (!token) {
+     this.loggedUser = 'null';
+    }
+    const decodedToken = jwtHelper.decodeToken(token);
+
+    let fullName = decodedToken?.fullName as string;
+    this.loggedUser = fullName.split(' ')[0];
   }
 
 }
