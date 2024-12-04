@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "token")
+//@Entity
+//@Table(name = "token")
 public class Token {
 
     @Id

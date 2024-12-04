@@ -33,7 +33,7 @@ public class GameMapper {
                 .rate(game.getRate())
                 .shareable(game.isShareable())
                 .archived(game.isArchived())
-                .owner(game.getOwner().fullName())
+                .owner(game.getCreatedBy())
                 .cover(FileUtils.readFileFromLocation(game.getGameCover()))
                 .build();
     }

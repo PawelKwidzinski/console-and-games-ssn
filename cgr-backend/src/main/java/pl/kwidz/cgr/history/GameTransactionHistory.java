@@ -1,5 +1,6 @@
 package pl.kwidz.cgr.history;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -20,9 +21,11 @@ import pl.kwidz.cgr.user.User;
 @Entity
 public class GameTransactionHistory extends BaseEntity {
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+//    @ManyToOne
+//    @JoinColumn(name = "user_id")
+//    private User user;
+    @Column(name = "user_id")
+    private String userId;
     @ManyToOne
     @JoinColumn(name = "game_id")
     private Game game;

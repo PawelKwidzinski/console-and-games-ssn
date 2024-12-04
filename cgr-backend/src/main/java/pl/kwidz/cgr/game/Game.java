@@ -31,10 +31,9 @@ public class Game extends BaseEntity {
     private boolean archived;
     private boolean shareable;
 
-
-    @ManyToOne
-    @JoinColumn(name = "owner_id")
-    private User owner;
+//    @ManyToOne
+//    @JoinColumn(name = "owner_id")
+//    private User owner;
 
     @OneToMany(mappedBy = "game")
     private List<Feedback> feedbacks;

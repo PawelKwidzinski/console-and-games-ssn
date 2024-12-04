@@ -30,9 +30,9 @@ public class FeedbackService {
         if (game.isArchived() || !game.isShareable()) {
             throw new OperationNotPermittedException("You cannot give a feedback for archived or not shareable game");
         }
-        User user = (User) connectedUser.getPrincipal();
+//        User user = (User) connectedUser.getPrincipal();
 
-        if (Objects.equals(game.getOwner().getId(), user.getId())) {
+        if (Objects.equals(game.getCreatedBy(), connectedUser.getName())) {
             throw new OperationNotPermittedException("You cannot give a feedback to your own game");
         }
         Feedback feedback = feedbackMapper.toFeedback(request);
