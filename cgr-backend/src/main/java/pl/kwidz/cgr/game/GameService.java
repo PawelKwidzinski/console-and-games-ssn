@@ -14,7 +14,6 @@ import pl.kwidz.cgr.exception.OperationNotPermittedException;
 import pl.kwidz.cgr.file.FileStorageService;
 import pl.kwidz.cgr.history.GameTransactionHistory;
 import pl.kwidz.cgr.history.GameTransactionHistoryRepository;
-import pl.kwidz.cgr.user.User;
 
 import java.util.List;
 import java.util.Objects;
@@ -31,10 +30,9 @@ public class GameService {
     private final FileStorageService fileStorageService;
 
     public Integer save(GameRequest gameRequest, Authentication connectedUser) {
-//        User user = (User) connectedUser.getPrincipal();
+        // todo add ownerName in gameRequest
         Game game = gameMapper.toGame(gameRequest);
 
-//        game.setOwner(user);
         return gameRepository.save(game).getId();
     }
 
@@ -45,7 +43,6 @@ public class GameService {
     }
 
     public PageResponse<GameResponse> findAllGames(int page, int size, Authentication connectedUser) {
-//        User user = (User) connectedUser.getPrincipal();
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
         Page<Game> games = gameRepository.findAllDisplayableGames(pageable, connectedUser.getName());
         List<GameResponse> gameResponses = games.stream()
@@ -56,7 +53,6 @@ public class GameService {
     }
 
     public PageResponse<GameResponse> findGamesByOwner(int page, int size, Authentication connectedUser) {
-//        User user = (User) connectedUser.getPrincipal();
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
         Page<Game> games = gameRepository.findAll(withOwnerId(connectedUser.getName()), pageable);
 
@@ -68,7 +64,6 @@ public class GameService {
     }
 
     public PageResponse<BorrowedGameResponse> findAllBorrowedGames(int page, int size, Authentication connectedUser) {
-//        User user = (User) connectedUser.getPrincipal();
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
         Page<GameTransactionHistory> allBorrowedGames = transactionHistoryRepository.findAllBorrowedGames(pageable, connectedUser.getName());
 
@@ -80,7 +75,6 @@ public class GameService {
     }
 
     public PageResponse<BorrowedGameResponse> findAllReturnedGames(int page, int size, Authentication connectedUser) {
-//        User user = (User) connectedUser.getPrincipal();
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
         Page<GameTransactionHistory> allReturnedGames = transactionHistoryRepository.findAllReturnedGames(pageable, connectedUser.getName());
 
@@ -95,7 +89,6 @@ public class GameService {
     public Integer updateShareableStatus(Integer gameId, Authentication connectedUser) {
         Game game = gameRepository.findById(gameId)
                 .orElseThrow(() -> new EntityNotFoundException(String.format("No game found with the ID: %d", gameId)));
-//        User user = (User) connectedUser.getPrincipal();
 
         if (!Objects.equals(game.getCreatedBy(), connectedUser.getName())) {
             throw new OperationNotPermittedException("You cannot update other games shareable status");
@@ -109,7 +102,6 @@ public class GameService {
     public Integer updateArchiveStatus(Integer gameId, Authentication connectedUser) {
         Game game = gameRepository.findById(gameId)
                 .orElseThrow(() -> new EntityNotFoundException(String.format("No game found with the ID: %d", gameId)));
-//        User user = (User) connectedUser.getPrincipal();
 
         if (!Objects.equals(game.getCreatedBy(), connectedUser.getName())) {
             throw new OperationNotPermittedException("You cannot update others games archived status");
@@ -127,7 +119,6 @@ public class GameService {
             throw new OperationNotPermittedException("You cannot borrow this game since it is archived or not shareable");
         }
 
-//        User user = (User) connectedUser.getPrincipal();
         if (Objects.equals(game.getCreatedBy(), connectedUser.getName())) {
             throw new OperationNotPermittedException("You cannot borrow if you're the owner of this game");
         }
@@ -152,7 +143,6 @@ public class GameService {
         if (game.isArchived() || !game.isShareable()) {
             throw new OperationNotPermittedException("You cannot return this game since it is archived or not shareable");
         }
-//        User user = (User) connectedUser.getPrincipal();
         if (Objects.equals(game.getCreatedBy(), connectedUser.getName())) {
             throw new OperationNotPermittedException("You cannot borrow or return your own game");
         }
@@ -170,7 +160,6 @@ public class GameService {
         if (game.isArchived() || !game.isShareable()) {
             throw new OperationNotPermittedException("You cannot return this game since it is archived or not shareable");
         }
-//        User user = (User) connectedUser.getPrincipal();
         if (!Objects.equals(game.getCreatedBy(), connectedUser.getName())) {
             throw new OperationNotPermittedException("You cannot return a game that you do not own");
         }
@@ -185,7 +174,6 @@ public class GameService {
     public void uploadBookCoverPicture(MultipartFile file, Authentication connectedUser, Integer gameId) {
         Game game = gameRepository.findById(gameId)
                 .orElseThrow(() -> new EntityNotFoundException(String.format("No game found with the ID: %d", gameId)));
-//        User user = (User) connectedUser.getPrincipal();
         var gameCover = fileStorageService.saveFile(file, connectedUser.getName());
         game.setGameCover(gameCover);
         gameRepository.save(game);

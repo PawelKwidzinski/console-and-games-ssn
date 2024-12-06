@@ -11,7 +11,6 @@ import pl.kwidz.cgr.common.PageResponse;
 import pl.kwidz.cgr.exception.OperationNotPermittedException;
 import pl.kwidz.cgr.game.Game;
 import pl.kwidz.cgr.game.GameRepository;
-import pl.kwidz.cgr.user.User;
 
 import java.util.List;
 import java.util.Objects;
@@ -30,7 +29,6 @@ public class FeedbackService {
         if (game.isArchived() || !game.isShareable()) {
             throw new OperationNotPermittedException("You cannot give a feedback for archived or not shareable game");
         }
-//        User user = (User) connectedUser.getPrincipal();
 
         if (Objects.equals(game.getCreatedBy(), connectedUser.getName())) {
             throw new OperationNotPermittedException("You cannot give a feedback to your own game");
@@ -41,10 +39,10 @@ public class FeedbackService {
 
     public PageResponse<FeedbackResponse> findAllFeedbacksByGame(Integer gameId, int page, int size, Authentication connectedUser) {
         Pageable pageable = PageRequest.of(page, size);
-        User user = (User) connectedUser.getPrincipal();
+
         Page<Feedback> feedbacks = feedbackRepository.findAllByGameId(gameId, pageable);
         List<FeedbackResponse> feedbackResponses = feedbacks.stream()
-                .map(feedback -> feedbackMapper.toFeedbackResponse(feedback, user.getName()))
+                .map(feedback -> feedbackMapper.toFeedbackResponse(feedback, connectedUser.getName()))
                 .toList();
         return new PageResponse<>(feedbackResponses, feedbacks.getNumber(), feedbacks.getSize(),
                 feedbacks.getTotalElements(), feedbacks.getTotalPages(), feedbacks.isFirst(), feedbacks.isLast());

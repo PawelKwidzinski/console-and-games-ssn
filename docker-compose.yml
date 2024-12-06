@@ -14,15 +14,6 @@ services:
     networks:
       - spring-cgr
     restart: unless-stopped
-  mail-dev:
-    container_name: mail-dev-cgr
-    image: maildev/maildev
-    ports:
-      - "1080:1080"
-      - "1025:1025"
-    networks:
-      - spring-cgr
-    restart: unless-stopped
 
   keycloak:
     container_name: keycloak-cgr

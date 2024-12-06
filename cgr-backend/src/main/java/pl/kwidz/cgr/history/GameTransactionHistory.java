@@ -11,7 +11,6 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import pl.kwidz.cgr.common.BaseEntity;
 import pl.kwidz.cgr.game.Game;
-import pl.kwidz.cgr.user.User;
 
 @Getter
 @Setter
@@ -21,9 +20,6 @@ import pl.kwidz.cgr.user.User;
 @Entity
 public class GameTransactionHistory extends BaseEntity {
 
-//    @ManyToOne
-//    @JoinColumn(name = "user_id")
-//    private User user;
     @Column(name = "user_id")
     private String userId;
     @ManyToOne
