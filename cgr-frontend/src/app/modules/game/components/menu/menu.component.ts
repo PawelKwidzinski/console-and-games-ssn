@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {JwtHelperService} from '@auth0/angular-jwt';
+import {KeycloakService} from '../../../../services/keycloak/keycloak.service';
 
 @Component({
   selector: 'app-menu',
@@ -8,7 +8,10 @@ import {JwtHelperService} from '@auth0/angular-jwt';
 })
 export class MenuComponent implements OnInit {
 
-  loggedUser = '';
+  loggedUser: string | undefined = '';
+
+  constructor(private keycloakService: KeycloakService) {
+  }
 
   ngOnInit(): void {
     const linkColor = document.querySelectorAll('.nav-link')
@@ -23,25 +26,15 @@ export class MenuComponent implements OnInit {
         link.classList.add('active');
       });
     });
-    this.getUsernameFromToken()
+    this.getUsernameFromKeycloak()
   }
 
-  logout() {
-    localStorage.removeItem('token');
-    window.location.reload();
+  async logout() {
+    this.keycloakService.logout()
   }
 
-  private getUsernameFromToken() {
-    const jwtHelper = new JwtHelperService();
-    const token = localStorage.getItem('token') as string;
-
-    if (!token) {
-     this.loggedUser = 'null';
-    }
-    const decodedToken = jwtHelper.decodeToken(token);
-
-    let fullName = decodedToken?.fullName as string;
-    this.loggedUser = fullName.split(' ')[0];
+  private getUsernameFromKeycloak() {
+    this.loggedUser = this.keycloakService.keycloak?.profile?.firstName
   }
 
 }

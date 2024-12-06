@@ -9,7 +9,6 @@ import lombok.experimental.SuperBuilder;
 import pl.kwidz.cgr.common.BaseEntity;
 import pl.kwidz.cgr.feedback.Feedback;
 import pl.kwidz.cgr.history.GameTransactionHistory;
-import pl.kwidz.cgr.user.User;
 
 import java.util.List;
 
@@ -30,11 +29,6 @@ public class Game extends BaseEntity {
     private String language;
     private boolean archived;
     private boolean shareable;
-
-
-    @ManyToOne
-    @JoinColumn(name = "owner_id")
-    private User owner;
 
     @OneToMany(mappedBy = "game")
     private List<Feedback> feedbacks;
