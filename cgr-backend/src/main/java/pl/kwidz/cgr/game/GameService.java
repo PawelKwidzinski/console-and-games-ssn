@@ -38,7 +38,7 @@ public class GameService {
 
     public GameResponse findById(Integer gameId) {
         return gameRepository.findById(gameId)
-                .map(gameMapper::toBookResponse)
+                .map(gameMapper::toGameResponse)
                 .orElseThrow(() -> new EntityNotFoundException(String.format("No game found with the ID: %d", gameId)));
     }
 
@@ -46,7 +46,7 @@ public class GameService {
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
         Page<Game> games = gameRepository.findAllDisplayableGames(pageable, connectedUser.getName());
         List<GameResponse> gameResponses = games.stream()
-                .map(gameMapper::toBookResponse)
+                .map(gameMapper::toGameResponse)
                 .toList();
         return new PageResponse<>(gameResponses, games.getNumber(), games.getSize(), games.getTotalElements(),
                 games.getTotalPages(), games.isFirst(), games.isLast());
@@ -57,7 +57,7 @@ public class GameService {
         Page<Game> games = gameRepository.findAll(withOwnerId(connectedUser.getName()), pageable);
 
         List<GameResponse> gameResponses = games.stream()
-                .map(gameMapper::toBookResponse)
+                .map(gameMapper::toGameResponse)
                 .toList();
         return new PageResponse<>(gameResponses, games.getNumber(), games.getSize(), games.getTotalElements(),
                 games.getTotalPages(), games.isFirst(), games.isLast());
@@ -84,7 +84,6 @@ public class GameService {
         return new PageResponse<>(gameResponses, allReturnedGames.getNumber(), allReturnedGames.getSize(), allReturnedGames.getTotalElements(),
                 allReturnedGames.getTotalPages(), allReturnedGames.isFirst(), allReturnedGames.isLast());
     }
-
 
     public Integer updateShareableStatus(Integer gameId, Authentication connectedUser) {
         Game game = gameRepository.findById(gameId)
@@ -171,7 +170,7 @@ public class GameService {
         return transactionHistoryRepository.save(gameTransactionHistory).getId();
     }
 
-    public void uploadBookCoverPicture(MultipartFile file, Authentication connectedUser, Integer gameId) {
+    public void uploadGameCoverPicture(MultipartFile file, Authentication connectedUser, Integer gameId) {
         Game game = gameRepository.findById(gameId)
                 .orElseThrow(() -> new EntityNotFoundException(String.format("No game found with the ID: %d", gameId)));
         var gameCover = fileStorageService.saveFile(file, connectedUser.getName());

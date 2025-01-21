@@ -103,7 +103,7 @@ public class GameController {
                                                     @Parameter()
                                                     @RequestPart("file") MultipartFile file,
                                                     Authentication connectedUser) {
-        gameService.uploadBookCoverPicture(file, connectedUser, gameId);
+        gameService.uploadGameCoverPicture(file, connectedUser, gameId);
         return ResponseEntity.accepted().build();
     }
 

@@ -21,7 +21,7 @@ public class GameMapper {
                 .build();
     }
 
-    public GameResponse toBookResponse(Game game) {
+    public GameResponse toGameResponse(Game game) {
         return GameResponse.builder()
                 .id(game.getId())
                 .title(game.getTitle())
