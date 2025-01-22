@@ -22,6 +22,7 @@ App offers features such as user registration, secure email validation, game man
 * Spring Data JPA
 * Spring Validation
 * Spring Security 6
+* JWT Token Authentication
 * Lombok
 * Java mail
 * Posgres 17
