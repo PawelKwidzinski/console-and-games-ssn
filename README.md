@@ -11,6 +11,7 @@ App offers features such as user registration, secure email validation, game man
 * Game Returning: Users can return borrowed games.
 * Game Return Approval: Functionality to approve game returns.
 ## Features TO DO
+* Game searching: Users can find an available game to borrow.
 * Console Management: Users can create, update, share, and archive their consoles.
 * Console Borrowing: Implements necessary checks to determine if a console is borrowable.
 * Console Returning: Users can return borrowed consoles.
