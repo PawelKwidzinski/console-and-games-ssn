@@ -8,10 +8,10 @@ import {KeycloakService} from '../../../../services/keycloak/keycloak.service';
 })
 export class MenuComponent implements OnInit {
 
-  loggedUser: string | undefined = '';
-
   constructor(private keycloakService: KeycloakService) {
   }
+
+  loggedUser: string | undefined = '';
 
   ngOnInit(): void {
     const linkColor = document.querySelectorAll('.nav-link')
@@ -26,15 +26,12 @@ export class MenuComponent implements OnInit {
         link.classList.add('active');
       });
     });
-    this.getUsernameFromKeycloak()
+    this.loggedUser = this.keycloakService.getUsernameFromKeycloak()
   }
 
   async logout() {
     this.keycloakService.logout()
   }
 
-  private getUsernameFromKeycloak() {
-    this.loggedUser = this.keycloakService.keycloak?.profile?.firstName
-  }
 
 }

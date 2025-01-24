@@ -24,6 +24,9 @@ public record GameRequest (
         @NotNull(message = "100")
         @NotEmpty(message = "100")
         String language,
+        @NotNull(message = "100")
+        @NotEmpty(message = "100")
+        String ownerName,
         boolean shareable
 ) {
 }

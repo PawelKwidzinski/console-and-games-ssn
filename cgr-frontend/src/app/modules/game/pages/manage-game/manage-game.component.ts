@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {GameRequest} from '../../../../services/models/game-request';
 import {GameService} from '../../../../services/services/game.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {KeycloakService} from '../../../../services/keycloak/keycloak.service';
 
 @Component({
   selector: 'app-manage-game',
@@ -18,13 +19,17 @@ export class ManageGameComponent implements OnInit {
     language: '',
     platform: '',
     studio: '',
-    title: ''
+    title: '',
+    ownerName: ''
   };
 
-  constructor(private gameService: GameService, private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(private gameService: GameService, private router: Router,
+              private activatedRoute: ActivatedRoute, private keycloakService: KeycloakService) {
   }
 
   ngOnInit(): void {
+    this.gameRequest.ownerName = this.keycloakService.getUsernameFromKeycloak();
+
     const gameId = this.activatedRoute.snapshot.params['gameId'];
     if (gameId) {
       this.gameService.findGameById({
@@ -39,10 +44,10 @@ export class ManageGameComponent implements OnInit {
             platform: game.platform as string,
             studio: game.studio as string,
             title: game.title as string,
+            ownerName: '',
             shareable: game.shareable
           }
           this.selectedPicture = 'data:image/jpeg;base64,' + game.cover;
-          console.log(game.cover);
         }
       });
     }

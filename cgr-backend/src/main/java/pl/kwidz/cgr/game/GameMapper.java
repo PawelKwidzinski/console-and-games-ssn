@@ -16,6 +16,7 @@ public class GameMapper {
                 .description(gameRequest.description())
                 .studio(gameRequest.studio())
                 .language(gameRequest.language())
+                .ownerName(gameRequest.ownerName())
                 .shareable(gameRequest.shareable())
                 .archived(false)
                 .build();
@@ -33,7 +34,7 @@ public class GameMapper {
                 .rate(game.getRate())
                 .shareable(game.isShareable())
                 .archived(game.isArchived())
-                .owner(game.getCreatedBy())
+                .owner(game.getOwnerName())
                 .cover(FileUtils.readFileFromLocation(game.getGameCover()))
                 .build();
     }
