@@ -1,15 +1,15 @@
-<div class="card border-2" style="width: 20rem; max-height: 440px; min-height: 440px"
+<div class="card border-3 ms-2" style="width: 18.5rem; max-height: 600px; min-height: 600px"
      [class.border-primary]="game.shareable"
      [class.border-danger]="game.archived"
 >
-    <img height="200" [src]="gameCover" class="card-img-top" alt="...">
+    <img height="300" [src]="gameCover" class="card-img-top" alt="...">
     <div class="card-body overflow-y-scroll overflow-x-hidden">
         <h5 class="card-title fs-6 text-nowrap fw-bold mb-1"><i class="fa-solid fa-gamepad">&nbsp;</i> {{ game.title }}
         </h5>
         <h5 class="card-subtitle fs-6 text-secondary mb-1">&nbsp;<i class="fa-sharp-solid fa-xbox">&nbsp;</i>
             &nbsp;{{ game.platform }} from {{ game.studio }}</h5>
         <h6 class="card-subtitle fs-6 text-secondary mb-1"><i class="fas fa-code">&nbsp;</i> {{ game.genre }}</h6>
-        <h6 class="card-subtitle fs-6 text-secondary mb-1"><i class="fas fa-user">&nbsp;</i> {{ game.owner }}</h6>
+        <h6 class="card-subtitle fs-6 text-secondary mb-1"><i class="fas fa-user">&nbsp;&nbsp;</i> {{ game.owner }}</h6>
         <hr>
         <p class="card-text">{{ game.description }}</p>
     </div>
