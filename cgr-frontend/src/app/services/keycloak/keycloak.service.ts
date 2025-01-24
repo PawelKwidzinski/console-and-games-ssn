@@ -43,8 +43,11 @@ export class KeycloakService {
   }
 
   logout() {
-    // return this.keycloak?.accountManagement();
     return this.keycloak?.logout({redirectUri: 'http://localhost:4200'});
+  }
+
+  getUsernameFromKeycloak(): string {
+    return <string>this._keycloak?.profile?.firstName
   }
 
 }

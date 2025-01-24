@@ -11,4 +11,5 @@ export interface GameRequest {
   shareable?: boolean;
   studio: string;
   title: string;
+  ownerName: string;
 }
