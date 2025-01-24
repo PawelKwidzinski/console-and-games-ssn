@@ -6,7 +6,7 @@ import {GameResponse} from '../../../../services/models/game-response';
   templateUrl: './game-card.component.html',
   styleUrl: './game-card.component.scss'
 })
-export class GameCardComponent {
+export class GameCardComponent{
   private _game: GameResponse = {};
   private _gameCover: string | undefined;
   private _manage = false;
@@ -35,12 +35,12 @@ export class GameCardComponent {
   set manage(value: boolean) {
     this._manage = value;
   }
-
   @Output() private share: EventEmitter<GameResponse> = new EventEmitter();
   @Output() private archive: EventEmitter<GameResponse> = new EventEmitter();
   @Output() private addToWaitingList: EventEmitter<GameResponse> = new EventEmitter();
   @Output() private borrow: EventEmitter<GameResponse> = new EventEmitter();
   @Output() private edit: EventEmitter<GameResponse> = new EventEmitter();
+
   @Output() private details: EventEmitter<GameResponse> = new EventEmitter();
 
   onShowDetails() {
