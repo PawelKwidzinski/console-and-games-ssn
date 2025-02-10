@@ -88,6 +88,7 @@ class GameServiceTest {
                 "Test Description",
                 "Test Studio",
                 "English",
+                "Test User",
                 true
         );
 
