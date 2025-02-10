@@ -38,3 +38,11 @@ App offers features such as user registration, secure email validation, game man
 * Authentication Guard
 * OpenAPI Generator for Angular
 * Bootstrap
+## Screenshots
+![alt text](https://github.com/PawelKwidzinski/console-and-games-ssn/blob/master/images/1.cag-ssn_sign_in.png)
+![alt text](https://github.com/PawelKwidzinski/console-and-games-ssn/blob/master/images/2.game_list.png)
+![alt text](https://github.com/PawelKwidzinski/console-and-games-ssn/blob/master/images/3.Add_game.png)
+![alt text](https://github.com/PawelKwidzinski/console-and-games-ssn/blob/master/images/4.already_borrowed.png)
+![alt text](https://github.com/PawelKwidzinski/console-and-games-ssn/blob/master/images/5.borrowing_game.png)
+![alt text](https://github.com/PawelKwidzinski/console-and-games-ssn/blob/master/images/6.borrowed_games.png)
+![alt text](https://github.com/PawelKwidzinski/console-and-games-ssn/blob/master/images/7.approve_returning.png)
