@@ -12,11 +12,12 @@ App offers features such as user registration, secure email validation, game man
 * Game Return Approval: Functionality to approve game returns.
 ## Features TO DO
 * Game searching: Users can find an available game to borrow.
+* My wish list: Users can find game to wish list
+* Communication between users: Users can use chat to communicate with other logged-in users.
 * Console Management: Users can create, update, share, and archive their consoles.
 * Console Borrowing: Implements necessary checks to determine if a console is borrowable.
 * Console Returning: Users can return borrowed consoles.
 * Console Return Approval: Functionality to approve console returns.
-* Communication between users: Users can use chat to communicate with other logged-in users.
 ## Technologies
 ### Backend
 * Spring Boot 3
